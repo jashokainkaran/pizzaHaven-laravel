@@ -1,4 +1,4 @@
-<x-app-layout :title="'Pizza Haven'">
+<x-app-layout>
     <!-- Hero Section -->
     <section class="relative text-center w-full">
         <div class="relative w-full">

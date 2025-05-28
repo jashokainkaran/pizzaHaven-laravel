@@ -2,10 +2,27 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\MongoTest;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+}) -> name('home');
+
+Route::get('/pizza', function(){
+    return view('pizza');
+}) -> name('pizza');
+
+Route::get('/drinks', function(){
+    return view('drinks');
+}) -> name('drinks');
+
+Route::get('/cart', function(){
+    return view('cart');
+}) -> name('cart');
+
+Route::get('/orders', function(){
+    return view('orders');
+}) ->name('orders');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

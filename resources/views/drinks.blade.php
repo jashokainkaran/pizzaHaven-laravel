@@ -1,4 +1,5 @@
-<x-app-layout :title="'Beverages'">
+<x-app-layout>
+    @section('title', 'Drinks')
 
 
 </x-app-layout>
