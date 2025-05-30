@@ -1,5 +1,7 @@
 <x-app-layout>
-    @section('title', 'Drinks')
+    <x-slot name="title">Beverages Menu</x-slot>
+    @livewire('drinks-menu')
+
 
 
 </x-app-layout>

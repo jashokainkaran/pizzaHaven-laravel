@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'My Cart')
+    <x-slot name="title">My Cart</x-slot>
 
 
 </x-app-layout>

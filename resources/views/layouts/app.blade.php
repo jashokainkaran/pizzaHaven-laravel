@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('img/favicon.png') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <title>@yield('title', 'Pizza Haven')</title>
+    <title>{{ $title ?? 'Pizza Haven' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -19,7 +19,6 @@
     </main>
 
     @include('layouts.footer')
-    @livewireScripts
 
     <div id="mobile-menu-backdrop" class="hidden fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-40 transition-opacity duration-300"></div>
 
@@ -86,6 +85,8 @@
             @endauth
         </div>
     </div>
+
+    @livewireScripts
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
