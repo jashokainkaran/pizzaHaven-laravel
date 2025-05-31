@@ -44,26 +44,15 @@ class Cart extends Component
     public function checkout()
     {
         if (!Auth::check()) {
-            session()->put('cart', $this->cart); // Keep items
-            session()->put('redirect_after_login', route('cart'));
+            session()->put('cart', $this->cart); // preserve items
+            session()->put('redirect_after_login', route('checkout'));
             return redirect()->guest(route('login'));
         }
 
-        Order::create([
-            'user_id' => Auth::id(),
-            'items' => $this->cart,
-            'total' => $this->calculateTotal(),
-            'status' => 'Pending',
-            'created_at' => now(),
-        ]);
+        // Store updated cart in session (in case quantities were changed)
+        session()->put('cart', $this->cart);
 
-        session()->forget('cart');
-        $this->cart = [];
-        $this->dispatch('cartUpdated');
-        $this->dispatch('flashMessage', [
-            'message' => 'Order placed successfully!',
-            'type' => 'success'
-        ]);
+        return redirect()->route('checkout');
     }
 
     public function calculateTotal()
