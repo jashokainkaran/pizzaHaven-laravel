@@ -15,7 +15,7 @@
                             <div class="flex justify-between items-center">
                                 <p class="text-2xl font-bold text-green-600">${{ number_format((float) $item->price, 2) }}
 </p>
-                                <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium">
+                                <button wire:click="addToCart('{{ $item->id}}')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors duration-200 font-medium">
                                     Add to Cart
                                 </button>
                             </div>

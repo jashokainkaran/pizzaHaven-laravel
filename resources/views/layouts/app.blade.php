@@ -13,6 +13,10 @@
 <body class="font-sans antialiased">
     @include('layouts.navigation')
 
+    <div class="relative z-40">
+        @livewire('flash-message')
+    </div>
+    
     <!-- Page Content -->
     <main>
         {{ $slot }}

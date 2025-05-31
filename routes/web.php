@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Models\MongoTest;
 
 Route::get('/', function () {
     return view('index');
@@ -34,8 +33,5 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/create-pizza', function(){
-    return view('create-pizza');
-});
 
 require __DIR__.'/auth.php';
