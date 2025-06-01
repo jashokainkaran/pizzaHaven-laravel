@@ -5,20 +5,20 @@ namespace App\Livewire\Admin;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use App\Models\Pizza;
+use App\Models\Drink;
 
-class Pizzas extends Component
+class Drinks extends Component
 {
     use WithFileUploads, WithPagination;
 
     public $searchTerm = '';
-    public $editingPizzaId = null;
+    public $editingDrinkId = null;
     public $editForm = [];
     public $editImage;
     public $currentImage;
     public $showAddModal = false;
     public $showDeleteModal = false;
-    public $pizzaToDelete = null;
+    public $drinkToDelete = null;
     public $newForm = [
         'name' => '',
         'category' => '',
@@ -60,7 +60,7 @@ class Pizzas extends Component
 
     public function render()
     {
-        $query = Pizza::query()->orderBy('created_at', 'desc');
+        $query = Drink::query()->orderBy('created_at', 'desc');
 
         if ($this->searchTerm) {
             $query->where(function($q) {
@@ -70,25 +70,25 @@ class Pizzas extends Component
             });
         }
 
-        $pizzas = $query->paginate(10);
+        $drinks = $query->paginate(10);
 
-        return view('livewire.admin.pizzas', [
-            'pizzas' => $pizzas,
+        return view('livewire.admin.drinks', [
+            'drinks' => $drinks,
         ]);
     }
 
-    public function edit($pizzaId)
+    public function edit($drinkId)
     {
-        $pizza = Pizza::find($pizzaId);
-        if ($pizza) {
-            $this->editingPizzaId = $pizzaId;
+        $drink = Drink::find($drinkId);
+        if ($drink) {
+            $this->editingDrinkId = $drinkId;
             $this->editForm = [
-                'name' => $pizza->name,
-                'category' => $pizza->category,
-                'price' => $pizza->price,
-                'description' => $pizza->description,
+                'name' => $drink->name,
+                'category' => $drink->category,
+                'price' => $drink->price,
+                'description' => $drink->description,
             ];
-            $this->currentImage = $pizza->image;
+            $this->currentImage = $drink->image;
             $this->resetValidation();
         }
     }
@@ -100,30 +100,30 @@ class Pizzas extends Component
         $this->loading = true;
 
         try {
-            $pizza = Pizza::find($this->editingPizzaId);
-            if ($pizza) {
-                $pizza->update($this->editForm);
+            $drink = Drink::find($this->editingDrinkId);
+            if ($drink) {
+                $drink->update($this->editForm);
 
                 if ($this->editImage) {
                     // Delete old image if exists
-                    if ($pizza->image && \Storage::disk('public')->exists($pizza->image)) {
-                        \Storage::disk('public')->delete($pizza->image);
+                    if ($drink->image && \Storage::disk('public')->exists($drink->image)) {
+                        \Storage::disk('public')->delete($drink->image);
                     }
 
-                    $path = $this->editImage->store('pizzas', 'public');
-                    $pizza->image = $path;
-                    $pizza->save();
+                    $path = $this->editImage->store('drinks', 'public');
+                    $drink->image = $path;
+                    $drink->save();
                 }
 
                 $this->cancelEdit();
                 $this->dispatch('flashMessage', [
-                    'message' => 'Pizza updated successfully!',
+                    'message' => 'Drink updated successfully!',
                     'type' => 'success'
                 ]);
             }
         } catch (\Exception $e) {
             $this->dispatch('flashMessage', [
-                'message' => 'Error updating pizza. Please try again.',
+                'message' => 'Error updating drink. Please try again.',
                 'type' => 'error'
             ]);
         } finally {
@@ -133,47 +133,47 @@ class Pizzas extends Component
 
     public function cancelEdit()
     {
-        $this->editingPizzaId = null;
+        $this->editingDrinkId = null;
         $this->editForm = [];
         $this->editImage = null;
         $this->currentImage = null;
         $this->resetValidation();
     }
 
-    public function openDeleteModal($pizzaId)
+    public function openDeleteModal($drinkId)
     {
-        $this->pizzaToDelete = $pizzaId;
+        $this->drinkToDelete = $drinkId;
         $this->showDeleteModal = true;
     }
 
     public function confirmDelete()
     {
-        if ($this->pizzaToDelete) {
+        if ($this->drinkToDelete) {
             $this->loading = true;
 
             try {
-                $pizza = Pizza::find($this->pizzaToDelete);
-                if ($pizza) {
+                $drink = Drink::find($this->drinkToDelete);
+                if ($drink) {
                     // Delete associated image
-                    if ($pizza->image && \Storage::disk('public')->exists($pizza->image)) {
-                        \Storage::disk('public')->delete($pizza->image);
+                    if ($drink->image && \Storage::disk('public')->exists($drink->image)) {
+                        \Storage::disk('public')->delete($drink->image);
                     }
 
-                    $pizza->delete();
+                    $drink->delete();
                     $this->dispatch('flashMessage', [
-                        'message' => 'Pizza deleted successfully!',
+                        'message' => 'Drink deleted successfully!',
                         'type' => 'success'
                     ]);
                 }
             } catch (\Exception $e) {
                 $this->dispatch('flashMessage', [
-                    'message' => 'Error deleting pizza. Please try again.',
+                    'message' => 'Error deleting drink. Please try again.',
                     'type' => 'error'
                 ]);
             } finally {
                 $this->loading = false;
                 $this->showDeleteModal = false;
-                $this->pizzaToDelete = null;
+                $this->drinkToDelete = null;
             }
         }
     }
@@ -181,7 +181,7 @@ class Pizzas extends Component
     public function cancelDelete()
     {
         $this->showDeleteModal = false;
-        $this->pizzaToDelete = null;
+        $this->drinkToDelete = null;
     }
 
     public function openAddModal()
@@ -215,22 +215,22 @@ class Pizzas extends Component
         $this->loading = true;
 
         try {
-            $pizza = Pizza::create($this->newForm);
+            $drink = Drink::create($this->newForm);
 
             if ($this->newImage) {
-                $path = $this->newImage->store('pizzas', 'public');
-                $pizza->image = $path;
-                $pizza->save();
+                $path = $this->newImage->store('drinks', 'public');
+                $drink->image = $path;
+                $drink->save();
             }
 
             $this->closeAddModal();
             $this->dispatch('flashMessage', [
-                'message' => 'Pizza added successfully!',
+                'message' => 'Drink added successfully!',
                 'type' => 'success'
             ]);
         } catch (\Exception $e) {
             $this->dispatch('flashMessage', [
-                'message' => 'Error adding pizza. Please try again.',
+                'message' => 'Error adding drink. Please try again.',
                 'type' => 'error'
             ]);
         } finally {

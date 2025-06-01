@@ -32,11 +32,11 @@
                     <div class="flex-1 min-w-0">
                         <h3 class="text-base sm:text-lg font-semibold text-secondary mb-1 sm:mb-2 truncate">{{ $item['name'] }}</h3>
                         <div class="flex flex-wrap items-center gap-2 sm:space-x-4 sm:gap-0">
-                            <span class="text-lg sm:text-xl font-bold text-gray-800">${{ number_format($item['price'], 2) }}</span>
+                            <span class="text-lg sm:text-xl font-bold text-gray-800">Rs {{ number_format($item['price'], 2) }}</span>
                             <span class="text-gray-400 hidden sm:inline">×</span>
                             <span class="text-sm sm:text-base text-gray-600">× {{ $item['quantity'] }}</span>
                             <span class="text-gray-400 hidden sm:inline">=</span>
-                            <span class="text-base sm:text-lg font-semibold text-gray-900">${{ number_format($item['price'] * $item['quantity'], 2) }}</span>
+                            <span class="text-base sm:text-lg font-semibold text-gray-900">Rs {{ number_format($item['price'] * $item['quantity'], 2) }}</span>
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
         <div class="bg-gray-50 rounded-xl p-4 md:p-6 border border-gray-200">
             <div class="flex items-center justify-between mb-4">
                 <span class="text-base md:text-lg font-semibold text-gray-700">Total Amount</span>
-                <span class="text-xl md:text-2xl font-bold text-gray-800">${{ number_format($this->calculateTotal(), 2) }}</span>
+                <span class="text-xl md:text-2xl font-bold text-gray-800">Rs {{ number_format($this->calculateTotal(), 2) }}</span>
             </div>
 
             <button wire:click="checkout"

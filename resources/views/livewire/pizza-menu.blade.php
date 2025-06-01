@@ -6,20 +6,18 @@
             <p class="text-gray-600 text-sm sm:text-base">Delicious pizzas made fresh daily</p>
         </div>
 
-        <!-- Filter Section -->
+        <!-- Search Section -->
         <div class="bg-white rounded-lg shadow-sm border p-4 sm:p-6 mb-6">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div class="flex flex-col sm:flex-row sm:items-center gap-3">
-                    <label for="category" class="text-sm font-medium text-gray-700 shrink-0">
-                        Filter by Category:
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 flex-1">
+                    <label for="search" class="text-sm font-medium text-gray-700 shrink-0">
+                        Search Pizzas:
                     </label>
-                    <select wire:model.live="selectedCategory" id="category"
-                            class="w-full sm:w-auto min-w-[200px] px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white text-sm transition-colors">
-                        <option value="">All Categories</option>
-                        @foreach($categories as $category)
-                            <option value="{{ $category }}">{{ ucfirst($category) }}</option>
-                        @endforeach
-                    </select>
+                    <input wire:model.live="search"
+                           id="search"
+                           type="text"
+                           placeholder="Search by name or description..."
+                           class="w-full sm:flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-orange-500 focus:border-orange-500 bg-white text-sm transition-colors">
                 </div>
 
                 @if($hasItems && $items)
@@ -31,13 +29,13 @@
                 @endif
             </div>
 
-            <!-- Pizza Filter Loader -->
-            <div wire:loading wire:target="selectedCategory" class="flex justify-center mt-4">
+            <!-- Pizza Search Loader -->
+            <div wire:loading wire:target="search" class="flex justify-center mt-4">
                 <div class="flex items-center gap-2 px-4 py-2 rounded-full bg-orange-100 text-orange-700 text-sm font-semibold shadow-sm animate-bounce transition-all">
                     <svg class="h-5 w-5 text-red-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 2C10 5 9 8 9 12s1 7 3 10c2-3 3-6 3-10s-1-7-3-10zm0 3a1.5 1.5 0 01.5 2.91A1.5 1.5 0 0112 5zm-3.75 8a.75.75 0 100 1.5h7.5a.75.75 0 000-1.5h-7.5z"/>
                     </svg>
-                    🍕 Filtering your favorite pizzas...
+                    🍕 Searching for pizzas...
                 </div>
             </div>
         </div>
@@ -47,7 +45,7 @@
             @if($hasItems && $groupedItems->isNotEmpty())
                 @foreach ($groupedItems as $category => $categoryItems)
                     <div class="mb-8 lg:mb-12">
-                        <div class="mb-6 border-b-2 border-orange-500 pb-2">
+                        <div class="mb-6 border-b-2 border-orange-600 pb-2">
                             <h2 class="mb-3 text-xl sm:text-2xl lg:text-3xl font-bold capitalize text-gray-800 inline-block">
                                 🍕 {{ ucfirst($category) }} Pizzas
                             </h2>
@@ -82,12 +80,12 @@
 
                                         <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3">
                                             <div class="flex items-center gap-2">
-                                                <span class="text-xl sm:text-2xl font-bold text-green-600">
-                                                    ${{ number_format((float) ($item->price ?? 0), 2) }}
+                                                <span class="text-xl sm:text-2xl font-bold text-secondary">
+                                                    Rs {{ number_format((float) ($item->price ?? 0), 2) }}
                                                 </span>
                                                 @if(isset($item->original_price) && $item->original_price > $item->price)
                                                     <span class="text-sm text-gray-400 line-through">
-                                                        ${{ number_format((float) $item->original_price, 2) }}
+                                                        Rs {{ number_format((float) $item->original_price, 2) }}
                                                     </span>
                                                 @endif
                                             </div>
@@ -114,18 +112,18 @@
             @else
                 <div class="bg-white rounded-lg shadow-sm border p-8 sm:p-12 text-center">
                     <div class="text-4xl sm:text-6xl mb-4">🍕</div>
-                    <h3 class="text-lg sm:text-xl font-semibold text-gray-600 mb-2">No pizzas available</h3>
+                    <h3 class="text-lg sm:text-xl font-semibold text-gray-600 mb-2">No pizzas found</h3>
                     <p class="text-gray-500 text-sm sm:text-base max-w-md mx-auto mb-4">
-                        @if($selectedCategory)
-                            No pizzas found in the "{{ ucfirst($selectedCategory) }}" category. Try selecting a different category or view all pizzas.
+                        @if($search)
+                            No pizzas found matching "{{ $search }}". Try a different search term.
                         @else
                             Our delicious pizzas are currently being prepared. Check back soon!
                         @endif
                     </p>
-                    @if($selectedCategory)
-                        <button wire:click="$set('selectedCategory', '')"
+                    @if($search)
+                        <button wire:click="$set('search', '')"
                                 class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-md transition-colors duration-200 text-sm font-medium">
-                            View All Pizzas
+                            Clear Search
                         </button>
                     @endif
                 </div>

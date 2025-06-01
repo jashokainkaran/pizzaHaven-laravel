@@ -10,21 +10,21 @@ class PizzaMenu extends Component
 {
     use WithPagination;
 
-    public $selectedCategory = '';
+    public $search = '';
     protected $paginationTheme = 'tailwind';
 
     public function render()
     {
         $query = Pizza::orderBy('category')->orderBy('name');
 
-        if ($this->selectedCategory) {
-            $query->where('category', $this->selectedCategory);
+        if ($this->search) {
+            $query->where(function($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                  ->orWhere('description', 'like', '%' . $this->search . '%');
+            });
         }
 
         $items = $query->paginate(9);
-
-        // Group all items by category even if pagination only shows a subset
-        $categories = collect(Pizza::distinct('category')->pluck('category'))->sort()->values()->all();
 
         // Only group the paginated items to display
         $groupedItems = $items->getCollection()->groupBy(function ($item) {
@@ -34,7 +34,6 @@ class PizzaMenu extends Component
         return view('livewire.pizza-menu', [
             'items' => $items,
             'groupedItems' => $groupedItems,
-            'categories' => $categories,
             'hasItems' => $items->isNotEmpty(),
         ]);
     }
@@ -65,7 +64,7 @@ class PizzaMenu extends Component
         ]);
     }
 
-    public function updatedSelectedCategory()
+    public function updatedSearch()
     {
         $this->resetPage();
     }
