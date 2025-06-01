@@ -5,7 +5,9 @@ RUN apt-get update && apt-get install -y \
     git curl zip unzip libpng-dev libonig-dev libxml2-dev libzip-dev libjpeg-dev libfreetype6-dev \
     libicu-dev gnupg2 ca-certificates lsb-release \
     nodejs npm \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip intl
+    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip intl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # ✅ Install MongoDB extension via PECL
 RUN pecl install mongodb \
