@@ -61,12 +61,12 @@
               <!-- User Section -->
               <div class="flex items-center space-x-4 ml-6 pl-6 border-l border-white/30">
                 <!-- User Greeting -->
-                <div class="group relative px-3 py-2 rounded-lg hover:bg-white/20 transition-all duration-300">
+                <a href="{{route('profile.edit')}}" class="group relative px-3 py-2 rounded-lg hover:bg-white/20 transition-all duration-300">
                   <span class="flex items-center space-x-2">
                     <span class="material-icons text-lg group-hover:scale-110 transition-transform duration-300" style="color: #b8860b;">waving_hand</span>
                     <span>Hi, <span class="font-semibold group-hover:scale-105 transition-transform duration-300">{{ Auth::user()->first_name ?? Auth::user()->name }}</span>!</span>
                   </span>
-                </div>
+                </a>
 
                 <!-- Logout Button -->
                 <form method="POST" action="{{ route('logout') }}" class="inline">

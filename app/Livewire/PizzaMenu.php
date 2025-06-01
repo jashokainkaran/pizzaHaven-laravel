@@ -1,23 +1,40 @@
 <?php
+
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\Pizza;
 
 class PizzaMenu extends Component
 {
+    use WithPagination;
+
+    public $selectedCategory = '';
+    protected $paginationTheme = 'tailwind';
+
     public function render()
     {
-        $items = Pizza::orderBy('category')
-                      ->orderBy('name')
-                      ->get();
+        $query = Pizza::orderBy('category')->orderBy('name');
 
-        $groupedItems = $items->groupBy(function ($item) {
+        if ($this->selectedCategory) {
+            $query->where('category', $this->selectedCategory);
+        }
+
+        $items = $query->paginate(9);
+
+        // Group all items by category even if pagination only shows a subset
+        $categories = collect(Pizza::distinct('category')->pluck('category'))->sort()->values()->all();
+
+        // Only group the paginated items to display
+        $groupedItems = $items->getCollection()->groupBy(function ($item) {
             return strtolower($item->category);
         });
 
         return view('livewire.pizza-menu', [
+            'items' => $items,
             'groupedItems' => $groupedItems,
+            'categories' => $categories,
             'hasItems' => $items->isNotEmpty(),
         ]);
     }
@@ -36,6 +53,7 @@ class PizzaMenu extends Component
                 'name' => $pizza->name,
                 'price' => $pizza->price,
                 'quantity' => 1,
+                'image' => $pizza->image,
             ];
         }
 
@@ -46,6 +64,9 @@ class PizzaMenu extends Component
             'type' => 'success'
         ]);
     }
-}
 
-?>
+    public function updatedSelectedCategory()
+    {
+        $this->resetPage();
+    }
+}

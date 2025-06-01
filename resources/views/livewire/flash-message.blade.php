@@ -13,7 +13,7 @@
             setTimeout(() => show = false, 3000);
         });
     "
-    class="absolute right-5 mt-4 px-4 py-3 rounded shadow-lg text-white z-40"
+    class="fixed right-5 mt-4 px-4 py-3 rounded shadow-lg text-white z-40"
     :class="{
         'bg-green-600': '{{ $type }}' === 'success',
         'bg-red-600': '{{ $type }}' === 'error'
