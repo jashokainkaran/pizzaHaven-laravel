@@ -21,7 +21,7 @@ WORKDIR /var/www
 COPY . .
 
 # ✅ Install PHP dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+#RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
 # ✅ Install Node + Tailwind
 RUN npm install && npm run build
