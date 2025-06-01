@@ -46,6 +46,14 @@
             <div class="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300" style="background-color: #b8860b;"></div>
           </a>
 
+        <a href="{{route('admin.users')}}" class="group relative px-3 py-2 rounded-lg hover:bg-white/20 transition-all duration-300">
+            <span class="flex items-center space-x-2">
+                <span class="material-icons text-lg">people</span>
+                <span>Users</span>
+            </span>
+            <div class="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300" style="background-color: #b8860b;"></div>
+        </a>
+        
           @auth
               <!-- Orders Link - Only visible when logged in -->
               <a href="{{ route('admin.orders') }}" class="group relative px-3 py-2 rounded-lg hover:bg-white/20 transition-all duration-300">
