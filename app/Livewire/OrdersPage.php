@@ -11,7 +11,9 @@ class OrdersPage extends Component
 
     public function mount()
     {
-        $this->orders = Order::with('user')->orderBy('created_at', 'desc')->get();
+        $this->orders = Order::where('user_id', auth()->id())
+                    ->orderBy('created_at', 'desc')
+                    ->get();
     }
 
     public function render()
