@@ -37,5 +37,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+    Route::get('/admin/pizza', function () {
+        return view('admin.ad-pizza');
+    })->name('admin.pizza');
+    Route::get('/admin/drinks', function () {
+        return view('admin.ad-drinks');
+    })->name('admin.drinks');
+    Route::get('/admin/orders', function () {
+        return view('admin.ad-orders');
+    })->name('admin.orders');
+    Route::get('/admin/users', function () {
+        return view('admin.ad-users');
+    })->name('admin.users');
+});
+
 
 require __DIR__.'/auth.php';
