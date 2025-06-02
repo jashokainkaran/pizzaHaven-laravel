@@ -1,0 +1,33 @@
+name: Deploy Laravel App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd pizzaHaven-laravel
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
+            docker exec laravel_app composer install
+            docker exec laravel_app php artisan config:clear
+            docker exec laravel_app php artisan route:clear
+            docker exec laravel_app php artisan view:clear
+            docker exec laravel_app npm install && npm run build
+
+
