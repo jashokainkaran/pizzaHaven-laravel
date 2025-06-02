@@ -23,6 +23,11 @@ WORKDIR /var/www
 # Copy source
 COPY . .
 
+# Create storage and cache directories early with correct permissions
+RUN mkdir -p /var/www/storage /var/www/storage/logs /var/www/storage/framework/cache /var/www/storage/framework/sessions /var/www/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 755 /var/www/storage /var/www/bootstrap/cache
+
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 

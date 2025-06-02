@@ -1,8 +1,26 @@
+# Node modules and vendor (reinstalled inside Docker)
 node_modules
 vendor
-*.log
-*.env
+
+# Environment files
+.env
+.env.*  # if you use .env.local or similar
+
+# Laravel storage (some folders are auto-generated or not needed in build context)
 storage/logs
-storage/framework
-storage/app/public
+storage/framework/*
+!storage/framework/.gitignore
+storage/app/public/*
+!storage/app/public/.gitignore
+storage/app/private/*
+!storage/app/private/.gitignore
+
+# Specific temp folder causing build failure
 storage/app/private/livewire-tmp
+!storage/app/private/livewire-tmp/.gitignore
+
+# IDE/OS junk
+*.log
+*.DS_Store
+.idea
+.vscode
