@@ -24,10 +24,15 @@ jobs:
             git pull origin main
             docker-compose down
             docker-compose up -d --build
+
             docker exec laravel_app composer install
             docker exec laravel_app php artisan config:clear
             docker exec laravel_app php artisan route:clear
             docker exec laravel_app php artisan view:clear
-            docker exec laravel_app bash -c "npm install && npm run build"
 
+            docker exec laravel_app php artisan storage:link
+            docker exec laravel_app chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+            docker exec laravel_app chmod -R 755 /var/www/storage /var/www/bootstrap/cache
+
+            docker exec laravel_app bash -c "npm install && npm run build"
 
