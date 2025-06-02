@@ -29,7 +29,7 @@ COPY . .
 
 
 # ✅ Install Node + Tailwind
-RUN npm install && npm run build
+# RUN npm install && npm run build
 
 # ✅ Set permissions
 RUN chown -R www-data:www-data /var/www \
