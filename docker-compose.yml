@@ -6,9 +6,9 @@ services:
     container_name: laravel_app
     restart: always
     volumes:
-      - .:/var/www
-      - ./storage:/var/www/storage
-      
+    - .:/var/www
+    - ./storage:/var/www/storage
+
     networks:
       - laravel
 
