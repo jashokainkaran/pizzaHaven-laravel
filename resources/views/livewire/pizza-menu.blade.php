@@ -56,7 +56,7 @@
                                 <div class="bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border group">
                                     <div class="relative overflow-hidden bg-gray-100">
                                         @if($item->image)
-                                            <img src="{{ $item->image }}"
+                                            <img src="{{ asset('storage/' . $item->image) }}"
                                                  alt="{{ $item->name }}"
                                                  class="w-full h-40 sm:h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                                                  loading="lazy">
