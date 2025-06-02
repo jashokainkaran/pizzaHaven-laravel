@@ -18,7 +18,7 @@ services:
   nginx:
     image: nginx:alpine
     container_name: nginx_server
-    restart: unless-stopped
+    restart: always
     ports:
       - "80:80"
       - "443:443"
