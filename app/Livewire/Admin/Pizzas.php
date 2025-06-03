@@ -48,7 +48,7 @@ class Pizzas extends Component
             'newForm.category' => 'required|string|max:255',
             'newForm.price' => 'required|numeric|min:0',
             'newForm.description' => 'nullable|string|max:1000',
-            'newImage' => 'nullable|image|max:2048',
+            'newImage' => 'nullable|image|max:10240',
         ];
     }
 
