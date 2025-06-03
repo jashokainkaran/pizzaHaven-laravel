@@ -47,7 +47,7 @@
                     <div class="mb-8 lg:mb-12">
                         <div class="mb-6 border-b-2 border-orange-600 pb-2">
                             <h2 class="mb-3 text-xl sm:text-2xl lg:text-3xl font-bold capitalize text-gray-800 inline-block">
-                                🍕 {{ ucfirst($category) }} Pizzas
+                                🍕 {{ ucfirst($category) }}
                             </h2>
                         </div>
 
