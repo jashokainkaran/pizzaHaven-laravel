@@ -22,7 +22,8 @@ WORKDIR /var/www
 # Copy app files
 COPY . .
 
-
+# ✅ Copy custom PHP config
+COPY php.ini /usr/local/etc/php/conf.d/uploads.ini
 
 # ✅ Install PHP dependencies
 #RUN composer install --no-interaction --prefer-dist --optimize-autoloader
