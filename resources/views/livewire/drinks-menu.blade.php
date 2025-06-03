@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">🥤 Drinks Menu</h1>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">🥤 Beverages Menu</h1>
             <p class="text-gray-600 text-sm sm:text-base">Refreshing beverages to quench your thirst</p>
         </div>
 
@@ -47,7 +47,7 @@
                     <div class="mb-8 lg:mb-12">
                         <div class="mb-6 border-b-2 border-orange-600 pb-2">
                             <h2 class="mb-3 text-xl sm:text-2xl lg:text-3xl font-bold capitalize text-gray-800 inline-block">
-                                🥤 {{ ucfirst($category) }} Drinks
+                                🥤 {{ ucfirst($category) }}
                             </h2>
                         </div>
 

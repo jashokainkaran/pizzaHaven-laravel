@@ -38,25 +38,25 @@
         </div>
 
         <div class="p-4 space-y-1">
-            <a href="{{ route('home') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
+            <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
                 <span class="material-icons text-yellow-500">home</span>
                 <span class="text-sm font-medium">Home</span>
             </a>
-            <a href="{{ route('pizza') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
+            <a href="{{ route('admin.pizza') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
                 <span class="material-icons text-yellow-500">local_pizza</span>
                 <span class="text-sm font-medium">Pizzas</span>
             </a>
-            <a href="{{ route('drinks') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
+            <a href="{{ route('admin.drinks') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
                 <span class="material-icons text-yellow-500">local_drink</span>
                 <span class="text-sm font-medium">Drinks</span>
             </a>
-            <a href="{{ route('cart') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
-                <span class="material-icons text-yellow-500">shopping_cart</span>
-                <span class="text-sm font-medium">Cart</span>
+            <a href="{{ route('admin.users') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
+                <span class="material-icons text-yellow-500">people</span>
+                <span class="text-sm font-medium">Users</span>
             </a>
 
             @auth
-            <a href="{{ route('orders') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
+            <a href="{{ route('admin.orders') }}" class="flex items-center gap-3 px-4 py-2 text-white rounded-lg hover:bg-white/10 border-l-4 border-transparent hover:border-yellow-500 transition">
                 <span class="material-icons text-yellow-500">receipt_long</span>
                 <span class="text-sm font-medium">Orders</span>
             </a>
